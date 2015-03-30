@@ -26,6 +26,7 @@ import io.gatling.http.check.ws.WsCheckSupport
 import io.gatling.http.config.{ DefaultHttpProtocol, HttpProtocolBuilder }
 import io.gatling.http.cookie.CookieSupport
 import io.gatling.http.feeder.SitemapFeederSupport
+import io.gatling.http.request.builder.polling.Polling
 import io.gatling.http.request.{ BodyPart, ExtraInfo }
 import io.gatling.http.request.builder.Http
 import io.gatling.http.request.builder.sse.Sse
@@ -47,6 +48,8 @@ trait HttpModule extends HttpCheckSupport with WsCheckSupport with SitemapFeeder
   def sse(requestName: Expression[String], sseName: String)(implicit configuration: GatlingConfiguration, defaultHttpProtocol: DefaultHttpProtocol) = new Sse(requestName, sseName)
   def ws(requestName: Expression[String])(implicit configuration: GatlingConfiguration, defaultHttpProtocol: DefaultHttpProtocol) = new Ws(requestName)
   def ws(requestName: Expression[String], wsName: String)(implicit configuration: GatlingConfiguration, defaultHttpProtocol: DefaultHttpProtocol) = new Ws(requestName, wsName)
+  def polling(implicit configuration: GatlingConfiguration, defaultHttpProtocol: DefaultHttpProtocol) = new Polling()
+  def polling(pollingName: String)(implicit configuration: GatlingConfiguration, defaultHttpProtocol: DefaultHttpProtocol) = new Polling(pollingName)
 
   val HttpHeaderNames = HeaderNames
   val HttpHeaderValues = HeaderValues
